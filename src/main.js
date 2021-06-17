@@ -109,7 +109,7 @@ Apify.main(async () => {
                         const price = item.querySelector('div[data-sh-or="price"] div > span > span')
                         ? item.querySelector('div[data-sh-or="price"] div > span > span').textContent : null;
 
-                        let description = item.querySelectorAll('div.hBUZL')[1].textContent;
+                        let description = ""; //item.querySelectorAll('div.hBUZL')[1].textContent;
 
                         const merchantName = item.querySelector('div[data-sh-or="price"]').nextSibling ? item.querySelector('div[data-sh-or="price"]').nextSibling.textContent : null;
 
@@ -139,7 +139,7 @@ Apify.main(async () => {
                             reviewsScore,
                             reviewsCount,
                             positionOnSearchPage: i + 1,
-                            productDetails: item.querySelectorAll('.translate-content')[1].textContent.trim(),
+                            productDetails: '',//item.querySelectorAll('.translate-content')[1].textContent.trim(),
                         };
 
                         data.push(output);
