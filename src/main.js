@@ -127,7 +127,8 @@ Apify.main(async () => {
 
                         let detailsUrl = item.querySelector('a.CaGdPb.ixf2Ic') ? item.querySelector('a.CaGdPb.ixf2Ic').getAttribute('href') : null;
                         if(detailsUrl != null){
-                            requestQueue.addRequest(makeRequestList(null, [detailsUrl], countryCode, true));
+                            var queue = Apify.openRequestQueue();
+                            queue.addRequest(makeRequestList(null, [detailsUrl], 'es', true)); //TODO poner la region
                         }
                         
                         const output = {
