@@ -125,6 +125,11 @@ Apify.main(async () => {
                         let reviewsScore = item.querySelector('div[aria-label*="product reviews"]') ? item.querySelector('div[aria-label*="product reviews"] span').textContent : null;
                         let reviewsCount = item.querySelector('div[aria-label*="product reviews"]') ? item.querySelector('div[aria-label*="product reviews"]').getAttribute('aria-label').split(' ')[0] : null;
 
+                        let detailsUrl = item.querySelector('a.CaGdPb.ixf2Ic') ? item.querySelector('a.CaGdPb.ixf2Ic').getAttribute('href') : null;
+                        if(detailsUrl != null){
+                            await requestQueue.addRequest(await makeRequestList(null, [detailsUrl], countryCode, true));
+                        }
+                        
                         const output = {
                             query,
                             productName,
@@ -179,50 +184,50 @@ Apify.main(async () => {
                 }
             }
 
-            // if (label === 'DETAIL_PAGE') {
-            //     log.info('Processing detail-page: ' + request.url);
-            //     const { label, query, hostname, item } = request.userData;
-            //     // console.log(response, puppeteerPool, autoscaledPool, session, proxyInfo);
+             if (label === 'DETAIL_PAGE') {
+                 log.info('Processing detail-page: ' + request.url);
+                 const { label, query, hostname, item } = request.userData;
+                 console.log(response, puppeteerPool, autoscaledPool, session, proxyInfo);
 
-            //     // await page.waitForSelector('table');
-            //     const data = await page.evaluate(() => {
-            //         const data = [];
+                 // await page.waitForSelector('table');
+                 const data = await page.evaluate(() => {
+                     const data = [];
 
-            //         const sellerTable = document.querySelector('table');
+                     const sellerTable = document.querySelector('table');
 
-            //         const tbody = sellerTable.querySelector('tbody');
-            //         const trs = Array.from(tbody.children);
+                     const tbody = sellerTable.querySelector('tbody');
+                     const trs = Array.from(tbody.children);
 
-            //         for (let i = 0; trs.length; i++) {
-            //             const tr = trs[i];
-            //             tds = Array.from(tr.children);
+                     for (let i = 0; trs.length; i++) {
+                         const tr = trs[i];
+                         tds = Array.from(tr.children);
 
-            //             currentSeller = Object.create(null);
+                         currentSeller = Object.create(null);
 
-            //             for (let z = 0; tds.length; z++) {
-            //                 if (z === 0) {
-            //                     td = tds[z];
-            //                     currentSeller.sellerName = td.innerText.split('\n')[0];
-            //                     currentSeller.sellerLink = td.querySelector('a').href;
-            //                 }
+                         for (let z = 0; tds.length; z++) {
+                             if (z === 0) {
+                                 td = tds[z];
+                                 currentSeller.sellerName = td.innerText.split('\n')[0];
+                                 currentSeller.sellerLink = td.querySelector('a').href;
+                             }
 
-            //                 if (z === 2) {
-            //                     td = tds[z];
-            //                     currentSeller.sellerPrice = td.innerText;
-            //                 }
-            //             }
+                             if (z === 2) {
+                                 td = tds[z];
+                                 currentSeller.sellerPrice = td.innerText;
+                             }
+                         }
 
-            //             data.push(currentSeller);
-            //         }
+                         data.push(currentSeller);
+                     }
 
-            //         return data;
-            //     });
+                     return data;
+                 });
 
-            //     item.sellers = data;
+                 item.sellers = data;
 
-            //     Apify.pushData(item);
-            //     console.log('item with sellers pushed.');
-            // }
+                 Apify.pushData(item);
+                 console.log('item with sellers pushed.');
+             }
         },
 
         handleFailedRequestFunction: async ({ request }) => {
