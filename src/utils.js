@@ -86,7 +86,7 @@ function makeRequestList(queries, inputUrl, countryCode, isDetailPage = false) {
             return new Apify.Request({
                 url,
                 userData: {
-                    label: (!isDetailPage?'SEARCH-PAGE':'DETAIL_PAGE'),
+                    label: 'DETAIL_PAGE',
                     query: url,
                     hostname,
                 },
