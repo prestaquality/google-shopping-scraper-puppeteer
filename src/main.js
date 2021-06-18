@@ -127,7 +127,7 @@ Apify.main(async () => {
 
                         let detailsUrl = item.querySelector('a.CaGdPb.ixf2Ic') ? item.querySelector('a.CaGdPb.ixf2Ic').getAttribute('href') : null;
                         if(detailsUrl != null){
-                            await requestQueue.addRequest(await makeRequestList(null, [detailsUrl], countryCode, true));
+                            requestQueue.addRequest(makeRequestList(null, [detailsUrl], countryCode, true));
                         }
                         
                         const output = {
