@@ -126,10 +126,7 @@ Apify.main(async () => {
                         let reviewsCount = item.querySelector('div[aria-label*="product reviews"]') ? item.querySelector('div[aria-label*="product reviews"]').getAttribute('aria-label').split(' ')[0] : null;
 
                         let detailsUrl = item.querySelector('a.CaGdPb.ixf2Ic') ? item.querySelector('a.CaGdPb.ixf2Ic').getAttribute('href') : null;
-                        if(detailsUrl != null){
-                            var queue = Apify.openRequestQueue();
-                            queue.addRequest(makeRequestList(null, [detailsUrl], 'es', true)); //TODO poner la region
-                        }
+                        
                         
                         const output = {
                             query,
@@ -146,6 +143,7 @@ Apify.main(async () => {
                             reviewsCount,
                             positionOnSearchPage: i + 1,
                             productDetails: '',//item.querySelectorAll('.translate-content')[1].textContent.trim(),
+                            detailsUrl: detailsUrl
                         };
 
                         data.push(output);
