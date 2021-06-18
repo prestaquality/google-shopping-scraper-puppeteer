@@ -125,7 +125,7 @@ Apify.main(async () => {
                         let reviewsScore = item.querySelector('div[aria-label*="product reviews"]') ? item.querySelector('div[aria-label*="product reviews"] span').textContent : null;
                         let reviewsCount = item.querySelector('div[aria-label*="product reviews"]') ? item.querySelector('div[aria-label*="product reviews"]').getAttribute('aria-label').split(' ')[0] : null;
 
-                        let detailsUrl = item.querySelector('a.CaGdPb.ixf2Ic') ? item.querySelector('a.CaGdPb.ixf2Ic').getAttribute('href') : null;
+                        let detailsUrl = item.querySelector('a.CaGdPb.ixf2Ic') ? item.querySelector('a.CaGdPb.ixf2Ic').href : null;
                         
                         
                         const output = {
