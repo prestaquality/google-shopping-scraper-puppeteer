@@ -54,7 +54,7 @@ function countryCodeToGoogleHostname(countryCode) {
     return googleDomains[suffix];
 }
 
-function makeRequestList(queries, inputUrl, countryCode) {
+function makeRequestList(queries, inputUrl, countryCode, isDetailPage = false) {
     const hostname = countryCodeToGoogleHostname(countryCode);
     let sources;
 
@@ -86,7 +86,7 @@ function makeRequestList(queries, inputUrl, countryCode) {
             return new Apify.Request({
                 url,
                 userData: {
-                    label: 'SEARCH-PAGE',
+                    label: (!isDetailPage?'SEARCH-PAGE':'DETAIL_PAGE'),
                     query: url,
                     hostname,
                 },
